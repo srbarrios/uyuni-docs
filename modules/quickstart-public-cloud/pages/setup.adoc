@@ -31,6 +31,18 @@ When running {productname} on public clouds, make sure you apply security measur
 
 
 
+.Procedure: Obtaining Your SCC Organization Credentials
+. Navigate to https://scc.suse.com/login in your Web browser.
+. Log in to your SCC account, or follow the prompts to create a new account.
+. If you have not yet done so, click btn:[Connect to an Organization] and type or search for your organization.
+. Click btn:[Manage my Organizations] and select your organization from the list by clicking on the organization name.
+. Click the btn:[Organization] tab, and then select the btn:[Organization Credentials] tab.
+. Record your login information for use during {productname} setup.
+
+Depending on your organization's setup, you might also need to activate your subscription, using the btn:[Activate Subscriptions] menu.
+
+
+
 To access the {productname} {webui}, configure the network access controls to allow HTTPS.
 
 Amazon EC2:
@@ -52,5 +64,5 @@ TBD
 ----
 
 
-We recommend that the repositories and the database for {productname} are stored on a separate storage volume (see see xref:installation:pubcloud-requirements.adoc[] for details).
-``
+We recommend that the repositories and the database for {productname} are stored on a separate storage volume.
+For details, see xref:installation:pubcloud-requirements.adoc[].

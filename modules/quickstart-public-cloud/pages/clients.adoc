@@ -10,22 +10,51 @@ When you have your {productname} Server set up, you are ready to start registeri
 . In the {productname} {webui}, navigate to menu:Systems[Bootstrapping].
 In the {productname} {webui}, navigate to menu:Systems[Bootstrapping], then fill in the ``Host``, ``SSH Port``, ``User`` and ``Password`` fields.
 
-Make sure you use stable FQDNs for the ``Host`` field, or {productname} will not be able to find your host when your Public Cloud gives you a different short-lived FQDNS. 
+Make sure you use stable FQDNs for the ``Host`` field, or {productname} will not be able to find your host when your Public Cloud gives you a different short-lived FQDNS.
 
-Also, please note public cloud images usually do not allow SSH login with user and password but only SSH certificate login. If you want to use the bootstrap from the UI, you will need to enable SSH login with user and password:
-<describe the required steps>
+Also, please note public cloud images usually do not allow SSH login with user and password but only SSH certificate login.
+If you want to use the bootstrap from the {webui}, you will need to enable SSH login with user and password:
+
+
+
+.Procedure: Registering Clients with Push via Salt SSH
+. In the {productname} {webui}, navigate to menu:Systems[Bootstrapping] and complete the appropriate fields.
+. Select an activation key with the Push via SSH contact method configured.
+For more information about activation keys, see xref:client-configuration:clients-and-activation-keys.adoc[].
+. Check the [systemitem]``Manage system completely via SSH`` checkbox.
+. Click btn:[Bootstrap] to begin registration.
+. Confirm that the system has been registered correctly by navigating to menu:Systems[Overview].
+
 
 {productname} will support bootstrapping from the UI with SSH certificates in a future release.
 
-Alternatively, you can use a bootstrap script: bla bla blah
+Alternatively, you can use a bootstrap script.
+For information about creating a bootstrap script, see xref:client-configuration:registration-bootstrap.adoc[].
 
-When the bootstrap process has completed, your client will be listed at menu:Systems[System List].
 
 
-* If you want more control over the process, have to register many clients, or are registering traditional clients, we recommend that you create a bootstrap script.
-For more information, see xref:client-configuration:registration-bootstrap.adoc[].
-* For Salt clients and even more control over the process, executing single commands on the command line can be useful.
-For more information, see xref:client-configuration:registration-cli.adoc[].
+.Procedure: Running the Bootstrap Script
+. On the {productname} Server, log in as root.
+At the command prompt, and change to the bootstrap directory:
++
+----
+cd /srv/www/htdocs/pub/bootstrap/
+----
+. Run this command to execute the bootstrap script on the client; replace [systemitem]`` EXAMPLE.COM`` with the host name of your server:
++
+----
+cat bootstrap-sles12.sh | ssh root@EXAMPLE.COM /bin/bash
+----
+The script will execute and proceed to download the required dependencies located in the repositories directory you created earlier.
+. When the script has finished running, you can check that your client is registered correctly by opening the {productname} {webui} and navigating to menu:Systems[Overview] to ensure the new client is listed.
+
+[WARNING]
+====
+When new packages or updates are installed on the client using {productname}, any end user license agreements (EULAs) are automatically accepted.
+To review a package EULA, open the package detail page in the {webui}.
+====
+
+When the bootstrap process has completed, your client is listed at menu:Systems[System List].
 
 
 
@@ -33,6 +62,8 @@ For more information, see xref:client-configuration:registration-cli.adoc[].
 
 Activation keys are used with traditional and Salt clients to ensure that your clients have the correct software entitlements, are connecting to the appropriate channels, and are subscribed to the relevant groups.
 Each activation key is bound to an organization, which you can set when you create the key.
+
+
 
 .Procedure: Creating an Activation Key
 . In the {productname} {webui}, as an administrator, navigate to menu:Systems[Activation Keys].
